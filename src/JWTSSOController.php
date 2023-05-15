@@ -129,6 +129,11 @@ class JWTSSOController implements RequestHandlerInterface
 
       $token = $this->getToken($user, true);
 
+      setcookie('flarum_token', $token, time() + 9999, true);
+      setcookie('flarum_remember', $token, time() + 9999, true);
+
+      header("Location: /");
+
       return new JsonResponse([
          'token' => $token,
          'userId' => $user->id
